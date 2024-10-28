@@ -1,1 +1,11 @@
-
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Hawat, Al Jurdi, Abou Abdo"
+  given-names: "Clarita, Wissam, Jacques"
+  orcid: 
+title: "Understand your Users, An Ensemble Learning Framework for Natural Noise Filtering in Recommender Systems"
+version: 1.0.0
+doi: 
+date-released: 
+url: "https://github.com/louiseClarita/Ensemble-Learning-Framework-For-Noise-Management-In-Recommender-Systems/"
