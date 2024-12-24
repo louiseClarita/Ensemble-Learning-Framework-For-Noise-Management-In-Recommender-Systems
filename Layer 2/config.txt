@@ -1,0 +1,17 @@
+dataset=C:/Users/clari/Desktop/M2 - Thesis/Research/Dr Jacques Bou Abdo/Recommender System/4 - Review/dataset/ml-5m
+#dataset=E:/ProgramData/Dropbox/Research/Archive/Datasets/ML-Latest-Small/ml-latest-small/
+#dataset=E:/ProgramData/Dropbox/Research/Archive/Datasets/ml-1m/
+#dataset_name=ml-1m
+#dataset_name=ml-5m
+dataset_name=ml_5m
+#dataset_name=ml-latest-small
+dataset_dir=C:/Users/clari/Desktop/M2 - Thesis/Research/Dr Jacques Bou Abdo/Recommender System/4 - Review/dataset/ml-5m
+generate_split_data=True
+split_data_is_generated=True
+#Start_of_NFA=AlgorithmBoundaries
+is_nf4_fuzzy_boundaries_manual=1
+r_min_end=1.5
+r_max_start=4
+r_mid_start=20
+r_mid_end=3
+#End_OF_NFA=AlgorithmBoundaries
