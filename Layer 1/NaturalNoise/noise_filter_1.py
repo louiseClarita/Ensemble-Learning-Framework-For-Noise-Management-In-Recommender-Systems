@@ -12,9 +12,9 @@ new_path2 = os.path.join(os.getcwd(), "Wissam's Work", "research-master")
 sys.path.append(new_path2)
 
 from helpers.dataset import get_config_data, load_items, load_ratings
-#  from helpers.dataset import get_config_data, load_ratings -- hidden to run on CH's PC
+#  from helpers.dataset import get_config_data, load_ratings -- hidden to run on Anon's PC
 # (23)	Correcting noisy ratings in collaborative recommender systems - ScienceDirect
-# Free paper: https://sci-hub.se/10.1016/j.knosys.2014.12.011
+
 class NoiseFilter1:
    
     def get_dataset_with_noise(self, ratings_df):
@@ -69,20 +69,14 @@ class NoiseFilter1:
         # item users
         item_groups_dict1 = dataset.groupby(['itemId','rating_group']).size().unstack().fillna(0).to_dict('index')
 
-        # # # CH ANALYSIS ON THE CODE:
-        # # # Here he is trying to classify the Wu _> weakly user
+        # # # Anon ANALYSIS ON THE CODE:
+        # # # Here Anon2 is trying to classify the Wu _> weakly user
         # # # And it looks different from what ze have in the algorithm in the paper, in the paper we compare against KU VU
-        # # # Is it the same?
-        # # # Kaeanno affal part li btehsob l osas li khassa bel item w deghre rah aal classification, bas leh?
-        # # # Only reason for him to use the Au/Wu/Su instead of Ai/Wi/Si, hye eza jawebon will be the same
-        # # # For me, ma bhes lzm ykouno same, laean theoretically, li khason bel item will identify eza l item rated 
-        # # # So the way to check should be by calculating viki; and seeing if it's equal to vuku
-        # 
+  
         # RESULT -> V=K, hence Ai/Wi/Si = Ai/Wi/Si
 
         
-        # This is correct for classification, bas mahal l u lezem tkoun i, as the WU was already classified?
-        # Forget about it, it's valid
+        # This is correct for classification
         for i in item_groups_dict1:
             value = item_groups_dict1[i]
             if(value['Wu'] >= (value['Au'] + value['Su'])):
