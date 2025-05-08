@@ -12,11 +12,9 @@
         2- if c is greater that the threshold th, then the rating is considered as noise
 
         In this class, we need to select a recommender and traing our data before we use it since it relies on the predicted ratings
-    On Google collab:
-    https://colab.research.google.com/drive/1hiQBYg5WDnouT-Kmdtgf3-143wiSe8sd?authuser=1#scrollTo=HiNbMZ9noWdj
-    Created In claritahawat0@gmail.com
+
 '''
-#### <- Means added by Clarita
+
 from dask.diagnostics import ProgressBar
 import dask.dataframe as dd
 import dask
@@ -82,20 +80,15 @@ def load_data():
         dataset_name = get_config_data()['dataset_name']
         ratings_df = load_ratings(dataset_path + '/clean')[['userId','movieId','rating']].rename({'movieId': 'itemId'}, axis=1)
         num_users = ratings_df['userId'].nunique()
-
         # Number of unique items
         num_items = ratings_df['itemId'].nunique()
-
         print(f"Number of users: {num_users}")
         print(f"Number of items: {num_items}")
         test_df = load_ratings(dataset_path)[['userId','itemId','rating']]
         #.rename({'movieId': 'itemId'}, axis=1)
-
         train_df = load_training_ratings(dataset_path)[['userId','itemId','rating']]
         return train_df, test_df
     
-
-
 
 def compute_prediction(userId, itemId, rating,algo):
     #pred = algo.predict(userId, itemId, r_ui=rating, verbose=True)
@@ -138,9 +131,7 @@ def compute_noise(userId, itemId, rating, prediction, r_max, r_min, th):
             noise = 0
 
         return noise
-    # else:
-        
-    #     raise Exception("Estimate not found")
+
     
 def compute_pearson_similarity_matrix(users, items, ratings):
     # axis=0 -> between corresponding columns
@@ -190,13 +181,8 @@ def main():
         print((trainset.__sizeof__))
     
         #### ratings_df and data are different representations of the same underlying data, but they serve different purposes and are structured differently
-        #### Clarita: In the paper, it is explicitly said not to train with KNearest
+        #### Anon: In the paper, it is explicitly said not to train with KNearest
 
-        # Build an algorithm, and train it.
-
-        #algo = KNNWithMeans(k=35, sim_options={'name': 'pearson_baseline',
-        #                                        'user_based': True  # compute  similarities between users
-        #                                         })
         algo = KNNWithMeans()
         # algo = KNeighborsRegressor(n_neighbors=35)
         #algo = KNeighborsRegressor(n_neighbors=35, metric=pearson_distance)
@@ -218,12 +204,12 @@ def main():
         #       result = dask.compute(*task)
         #ddf['prediction'] = ddf.apply(lambda x: compute_prediction(x.userId, x.itemId, x.rating, algo), axis=1, meta=('x', 'f8'))
         #result = ddf.compute()
-        #### Clarita:
+        #### Anon:
         #### TRAINING SET = PREDICTION SET -> OVERFITTING, what we should do, is train on dataset, then, test on another, That shares items and users
         #### But Training data will affect either way what we have as a result, so I am not sure, if we can take this algrithm in the benchmark
         #### I think the best way, is to, maybe, maybe train on ml-100k, after making sure it has the same users and ratings,
         #### As input, we will give the algorithm, itemid and userid
-        #### Dr Jacques: Noisy rating isn't fixed, so it will never be able to accurately get a pattern to be able to predict well, so by default
+        #### Anon: Noisy rating isn't fixed, so it will never be able to accurately get a pattern to be able to predict well, so by default
         #### We won't have noisy ratings
         test_df = pd.concat(appended_dataframes)
         # print("test_df['userId']" + str(test_df['userId']))
