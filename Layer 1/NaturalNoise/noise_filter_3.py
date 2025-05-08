@@ -122,10 +122,9 @@ if(not os.path.exists('NaturalNoise/output/' + get_config_data()['dataset_name']
     #algo.fit(trainset)
     incremental_fit(algo, train_data_df, batch_size=10000)
 
-    #### Clarita:
+    #### Anon:
     #### TRAINING SET = PREDICTION SET -> OVERFITTING, what we should do, is train on dataset, then, test on another, That shares items and users
     #### But Training data will affect either way what we have as a result, so I am not sure, if we can take this algrithm in the benchmark
-    #### I think the best way, is to, maybe, maybe train on ml-100k, after making sure it has the same users and ratings,
     #### As input, we will give the algorithm, itemid and userid
     ####
     num_batches = len(test_data_df) // batch_size + 1
