@@ -3,18 +3,14 @@
 
     Natural Noise filter class
     Paper: 5 - Detecting Noise in Recommender System Databases
-    https://sci-hub.st/10.1145/1111449.1111477
     use it to apply noise filtering to a certain dataset of ratings
-
 
     Description: 
         1- We define the consistency c of a rating ru,v as the Mean Absolute Error between the actual and predicted rating
         2- if c is greater that the threshold th, then the rating is considered as noise
 
         In this class, we need to select a recommender and traing our data before we use it since it relies on the predicted ratings
-    On Google collab:
-    https://colab.research.google.com/drive/1hiQBYg5WDnouT-Kmdtgf3-143wiSe8sd?authuser=1#scrollTo=HiNbMZ9noWdj
-    Created In claritahawat0@gmail.com
+
 '''
 #### <- Means added by Clarita
 import swifter
@@ -77,7 +73,7 @@ def compute_prediction(userId, itemId, rating,algo):
 
     return pred
 
-#### Clarita added this function
+
 def compute_prediction_paper_algorithm(userId, itemId, rating,ratings,similarity,algo):
     # rating should have the current rating we want to target
     # ratings is the array
@@ -87,14 +83,6 @@ def compute_prediction_paper_algorithm(userId, itemId, rating,ratings,similarity
     return pred
 
 def compute_noise(userId, itemId, rating, prediction, r_max, r_min, th):
-    # print("prediction " + str(prediction))
-    # estimate = prediction[54:]
-    # print("estimate " + str(estimate))
-    # pred = estimate[:4]
-    # print(str(pred))
-    # Unfortunately, While testing the code once more, this method of slicing didnt work; I checked, And it seems it is prone to errors
-    # Hence why I will use regex matching
-
 
     match = re.search(r'est = ([0-9]+\.[0-9]+)', prediction)
 
@@ -115,12 +103,9 @@ def compute_noise(userId, itemId, rating, prediction, r_max, r_min, th):
         raise Exception("Estimate not found")
     
 def compute_pearson_similarity_matrix(users, items, ratings):
-    # axis=0 -> between corresponding columns
-    # axis=1 -> between corresponding rows
-    # pearsonr(x, y, *, alternative='two-sided', method=None, axis=0)
+
     return stats.pearsonr(users, items, ratings,method=None, axis=1).statistic
 
-#print(compute_pearson_similarity_matrix(ratings_df['userId'], ratings_df['itemId'],ratings_df['rating']))
 
 
 ##  Here is our Main
@@ -144,7 +129,7 @@ def main():
         print((trainset))
     
         #### ratings_df and data are different representations of the same underlying data, but they serve different purposes and are structured differently
-        #### Clarita: In the paper, it is explicitly said not to train with KNearest
+        #### Anon: In the paper, it is explicitly said not to train with KNearest
 
         # Build an algorithm, and train it.
 
@@ -158,12 +143,12 @@ def main():
             batch = test_data_df[i * batch_size: (i + 1) * batch_size]
             batch['prediction'] = batch.swifter.apply(lambda x: compute_prediction(x.userId, x.itemId, x.rating, algo), axis=1)
             appended_dataframes.append(batch)
-        #### Clarita:
+        #### Anon:
         #### TRAINING SET = PREDICTION SET -> OVERFITTING, what we should do, is train on dataset, then, test on another, That shares items and users
         #### But Training data will affect either way what we have as a result, so I am not sure, if we can take this algrithm in the benchmark
         #### I think the best way, is to, maybe, maybe train on ml-100k, after making sure it has the same users and ratings,
         #### As input, we will give the algorithm, itemid and userid
-        #### Dr Jacques: Noisy rating isn't fixed, so it will never be able to accurately get a pattern to be able to predict well, so by default
+        #### Anon3: Noisy rating isn't fixed, so it will never be able to accurately get a pattern to be able to predict well, so by default
         #### We won't have noisy ratings
         test_df = pd.concat(appended_dataframes)
         print("test_df['userId']" + str(test_df['userId']))
