@@ -116,12 +116,6 @@ def Label_Encoding(ratings_df):
 def get_models():
     # Each of these models behqve in a unique way to the other
     models = dict()
-    #models['lr'] = LogisticRegression()
-    # CNN = Sequential()
-    # CNN.add(Dense(25, input_dim=2, activation='relu'))
-    # CNN.add(Dense(3, activation='softmax'))
-    # CNN.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    #models['CNN'] = CNN
     models['svm'] = SVC()
     models['bayes'] = GaussianNB()
     models['cart'] = DecisionTreeClassifier()
@@ -132,14 +126,6 @@ def get_models():
 def get_stacking():
     # define the base models
     level0 = list()
-    #level0.append(('lr', LogisticRegression()))
-
-    # CNN = Sequential()
-    # CNN.add(Dense(25, input_dim=4, activation='relu'))
-    # CNN.add(Dense(3, activation='softmax'))
-    # CNN.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-
-    #level0.append(('CNN',CNN))
     level0.append(('rf', RandomForestClassifier(n_estimators=100, random_state=42)))
     level0.append(('ef', ExtraTreesClassifier(n_estimators=100, random_state=42)))
     level0.append(('lr', LogisticRegression(random_state=42)))
@@ -181,7 +167,6 @@ model.fit(training_dataset_X,training_dataset_Y)
 num_batches = len(testing_dataset_X) // batch_size + 1
 appended_dataframes = []
 for i in range(num_batches):
-    # iloc bas kermel ysir aande series la e2dar estaamel swifter kermel l parallization // using dask
     batch = testing_dataset_X[i * batch_size: (i + 1) * batch_size].copy()
                                                                      #["userId","movieId","rating",	"timestamp","genres_bin",
     batch['isNoisy'] = batch.swifter.apply(lambda x: classify_rating(x.userId,x.movieId,x.rating,x.timestamp,x.nf1,x.nf2,x.nf3,x.nf4,x.genres_bin, model), axis=1)
@@ -189,4 +174,4 @@ for i in range(num_batches):
 
 
 final_output = pd.concat(appended_dataframes, axis=0)
-final_output.to_csv(r'C:\\Users\\clari\\Desktop\\M2 - Thesis\\Research\\Dr Jacques Bou Abdo\\Recommender System\\5 - Ensemble Learning Model\\output\\'+dataset_name+'\\' + dataset_name + '_el2.2_TestWithNF_fine_tuning.csv', index=False)
+final_output.to_csv(r'..\\output\\'+dataset_name+'\\' + dataset_name + '_el2.2_TestWithNF_fine_tuning.csv', index=False)
