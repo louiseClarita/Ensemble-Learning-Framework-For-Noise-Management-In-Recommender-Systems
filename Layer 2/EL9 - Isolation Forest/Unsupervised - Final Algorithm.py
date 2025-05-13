@@ -2,8 +2,6 @@
 
 Extended Isolation Forest, 2019
 
-
-
 '''
 
 from sklearn.preprocessing import LabelEncoder
@@ -17,9 +15,7 @@ import numpy as np
 
 dataset_name = 'ml-25m-subset(4)-#5'
 SHEET_NAME = "Analysis"
-INPUT_FILE =r"C:\Users\clari\Desktop\M2 - Thesis\Research\Dr Jacques Bou Abdo\Recommender System\5 - Ensemble Learning Model\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
-#INPUT_FILE = r"../../DataPreperation/output/ml-5m/Fully_Merged_Data_cleaned.xlsx"
-
+INPUT_FILE =r"5 - Ensemble Learning Model\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
 
 def load_data(INPUT_FILE, SHEET_NAME):
     #ratings_df = pd.read_excel(INPUT_FILE, sheet_name=SHEET_NAME,nrows=15)
