@@ -19,7 +19,7 @@ from swifter import swifter
 # from tensorflow.keras.models import Sequential
 # from tensorflow.keras.layers import Dense
 
-INPUT_FILE =r"C:\Users\clari\Desktop\M2 - Thesis\Research\Dr Jacques Bou Abdo\Recommender System\5 - Ensemble Learning Model\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
+INPUT_FILE =r"..\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
 dataset_name = 'ml-25m-subset(4)-#2'
 NF_count = 4
 
