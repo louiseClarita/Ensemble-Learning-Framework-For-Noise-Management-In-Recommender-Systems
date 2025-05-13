@@ -1,6 +1,6 @@
 #2 - Stacking
 # Paper Source https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9893798
-# 2nd Paper, not used yet
+# 2nd Paper
 # P. K. Jain, R. Pamula, and G. Srivastava, ‘‘A systematic literature review 1799 on machine learning applications for consumer sentiment analysis using 1800 online reviews,’’ Comput. Sci. Rev., vol. 41, Aug. 2021, Art. no. 100413, 1801 doi: 10.1016/j.cosrev.2021.100413 
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, ExtraTreesClassifier
 
