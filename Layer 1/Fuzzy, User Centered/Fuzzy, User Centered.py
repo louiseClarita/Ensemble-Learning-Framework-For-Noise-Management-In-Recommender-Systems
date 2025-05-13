@@ -1,9 +1,5 @@
 # This code follows this paper for https://sci-hub.se/10.1016/j.asoc.2015.10.060
 # NF4
-# Master 2 - Web Dev
-# 
-#
-
 
 
 from joblib import Parallel, delayed
@@ -28,29 +24,10 @@ print("os 2" + os.getcwd())
 import dask.dataframe as dd
 from helpers.dataset import get_config_data, load_ratings
 
-# low = 0
-# medium = 0
-# high = 0
-#print(os.getcwd())
-#INPUT_PATH = "dataset/ml_latest_small/ratings.csv"
-#ratings_df = pd.read_csv(INPUT_PATH) 
-
-
-
-
-
 
 
 
 def fuzzify_rating(rating,x,low,medium,high):
-    
-    # membership_low = fuzz.interp_membership(x, low, rating)
-    # membership_medium = fuzz.interp_membership(x, medium, rating)
-    # membership_high = fuzz.interp_membership(x, high, rating)
-    # return {'low': membership_low, 'medium': membership_medium, 'high': membership_high}
-    #low = fuzz.trapmf(x, [r_min, r_min, r_min_end, r_min_outerbound])
-    # 
-    # low = fuzz.trapmf(x, [r_min, r_min, r_min_end, r_min_outerbound])
 
     membership_low = fuzz.trapmf(x, lowlist)[np.where(np.isclose(x,rating))[0]]
     membership_medium = fuzz.trapmf(x, mediumlist)[np.where(np.isclose(x,rating))[0]]
@@ -108,9 +85,7 @@ def prefiltering(user_profiles, item_profiles, rating_profiles):
                 user_profile = user_profiles[user_id]
                 item_profile = item_profiles[item_id]
                 count = 0
-                #P*Ru is user_profile
-                #P*Ri is item_profile
-                #S = {Low, Medium, High}
+\
                 manhattan_distance = abs(item_profile['low'] - user_profile['low'])
                 + abs(item_profile['medium'] - user_profile['medium'])
                 + abs(item_profile['high'] - user_profile['high'])
@@ -120,17 +95,7 @@ def prefiltering(user_profiles, item_profiles, rating_profiles):
                 if manhattan_distance < lambda1 and not is_variable_user and not is_variable_item:
                     elegible_ratings.append(rating_profile)
                     ## Added the variable condition equation 8 from the paper, if PRx = (0,0,0) then this profile is variable and isnt eligible for checking
-                     # if the item isn't elegible, then, 
-                    # it is dificult to know if for real it is noisy or no, 
-                    # In this case we will set the noisy detection result to -1
-                    # Theoretically it means, It doesnt fall under any set of S
-                #print("manhattan_distance " + str(manhattan_distance))
-                # if manhattan_distance < lambda1:
-                #     elegible_ratings.append(rating_profile)
-                #     # if the item isn't elegible, then, 
-                #     # it is dificult to know if for real it is noisy or no, 
-                #     # In this case we will set the noisy detection result to -1
-                #     # Theoretically it means, It doesnt fall under any set of S
+
                 else:
                     count = count + 1
         #print('count unelegibile '+ str(count))        
@@ -167,22 +132,10 @@ def create_fuzzy_rating_profiles(df, x, low, medium, high):
         user_id = row['userId']
         item_id = row['movieId']
         rating = row['rating']
-        # if  rating == 2.00 : 
-        #     print('Printing out the fuzziness')
-        # print(' current rating is :' + str(rating))
+\
         rating_membership = fuzzify_rating(rating, x, low, medium, high)
         for label in ['low', 'medium', 'high']:
            rating_membership[label] = f1(rating_membership[label])
-        # #  These lines were added to make sure the library and the manual fuzzy membership work the same the same way
-        # fuzzifiedm = fuzzify_rating_manual(rating)
-        # # # if  rating == 2.00 : 
-        # # #     print('Printing out the fuzziness')
-        # # #     print(' manual version ' + str(fuzzifiedm))
-        # # #     print(' Fuzzy from the library' + str(rating_membership))
-        # # if rating_membership != fuzzifiedm:
-        # #         print('they are not equal in create_fuzzy_rating_profiles')
-        # #         print(' manual version ' + str(fuzzifiedm))
-        # #         print(' Fuzzy from the library' + str(rating_membership))
         rating_profiles.append({
             'user_id': user_id,
             'item_id': item_id,
@@ -203,12 +156,6 @@ def create_fuzzy_user_profile(rating_profiles,type):
         user_profiles[user_id]['medium'].append(profile['rating_membership']['medium'])
         user_profiles[user_id]['high'].append(profile['rating_membership']['high'])
         user_profiles[user_id]['count'] += 1
-
-        # user_id = profile[type]
-        # user_profiles[user_id]['low'] += profile['rating_membership']['low']
-        # user_profiles[user_id]['medium'] += profile['rating_membership']['medium']
-        # user_profiles[user_id]['high'] += profile['rating_membership']['high']
-        # user_profiles[user_id]['count'] += 1
     
     for user_id, profile in user_profiles.items():
         for label in ['low', 'medium', 'high']:
@@ -388,14 +335,6 @@ def detect_noise_v0(ratings_df, user_profiles, item_profiles, rating_profiles):
     #Temporaru
     start_time = time.time()
 
-# Your code block here
-    # For example:
-    # run_your_function()
-
-    # End the timer
-    
-
-
     lambda2 = 1
     count = 0
     print('QBC')
@@ -414,11 +353,7 @@ def detect_noise_v0(ratings_df, user_profiles, item_profiles, rating_profiles):
         print(user_id, item_id, rating_membership)
         user_profile = user_profiles[user_id]
         item_profile = item_profiles[item_id]
-        
-        #P*Ru is user_profile
-        #P*Ri is item_profile
-        #S = {Low, Medium, High}
-        # Calculate Manhattan distances
+
         distance_user = sum(abs(user_profile[label] - rating_membership[label]) for label in ['low', 'medium', 'high'])
         distance_item = sum(abs(item_profile[label] - rating_membership[label]) for label in ['low', 'medium', 'high'])
 
