@@ -24,7 +24,7 @@ import graphviz
 SHEET_NAME = "Analysis"
 #INPUT_FILE = r"C:\Users\Pc\Desktop\Clarita - M2 - Thesis\Ensemble Learning\DataPreperation\output\ml-25m\Fully_Merged_Data_cleaned.xlsx"
 
-INPUT_FILE =r"C:\Users\clari\Desktop\M2 - Thesis\Research\Dr Jacques Bou Abdo\Recommender System\5 - Ensemble Learning Model\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
+INPUT_FILE =r"..\..\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
 batch_size = 50000
 dataset_name = 'ml-25m-subset(4)-#1'
 NF_count = 4
@@ -160,8 +160,8 @@ for i in range(num_batches):
     appended_dataframes.append(batch)
 
 
-final_output = pd.concat(appended_dataframes, axis=0) # Vertically Clar
-final_output.to_csv(r'C:\\Users\\clari\\Desktop\\M2 - Thesis\\Research\\Dr Jacques Bou Abdo\\Recommender System\\5 - Ensemble Learning Model\\output\\' +dataset_name+ '\\'+ dataset_name + '_el1_withnfs_fine_tuning.csv', index=False)
+final_output = pd.concat(appended_dataframes, axis=0) # Vertically 
+final_output.to_csv(r'..\\..\\output\\' +dataset_name+ '\\'+ dataset_name + '_el1_withnfs_fine_tuning.csv', index=False)
 
 
 #X_train, X_test, y_train, y_test = train_test_split(ratings_df, test_size=0.2)
