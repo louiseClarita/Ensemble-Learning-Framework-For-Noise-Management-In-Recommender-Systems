@@ -45,7 +45,7 @@ from sklearn.ensemble import VotingClassifier
 #import tensorflow as tf
 
 print(os.getcwd())
-INPUT_FILE =r"C:\Users\clari\Desktop\M2 - Thesis\Research\Dr Jacques Bou Abdo\Recommender System\5 - Ensemble Learning Model\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
+INPUT_FILE =r"..\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
 dataset_name = 'ml-25m-subset(4)-#4.2'
 NF_count = 4
 
@@ -59,17 +59,11 @@ k = 2
 Same_Classifier = False
 
 from scipy.optimize import minimize
-# Check if a GPU is available
-# if tf.config.list_physical_devices('GPU'):
-#     print("GPU available")
-# else:
-#     print("GPU not available")
 
 def load_data(INPUT_FILE, SHEET_NAME):
     #ratings_df = pd.read_excel(INPUT_FILE, sheet_name=SHEET_NAME,nrows=15)
     ratings_df = pd.read_csv(INPUT_FILE).rename(columns={'itemId':'movieId'})
                              #, sheet_name=SHEET_NAME)
-    # Transforming the genres to Binary
 
     if NF_count == 5:
         ratings_df = Label_Encoding(ratings_df)
@@ -613,26 +607,5 @@ if __name__ == "__main__":
         ensemble_predictions = predict_with_ensemble(ensemble, Xu)
         Xu['isNoisy'] = ensemble_predictions
         Xu.to_csv(r'../output/'+dataset_name+'/El8.1_Result_Different_full_TestWithNF.csv', index=False)
-    # Evaluate accuracy
-    #accuracy = accuracy_score(L_test_labels, ensemble_predictions)
 
-    # path = r'../../output/'+dataset_name+'/output'+dataset_name+'_el7_Testing.csv'
-    # final_result_df = final_result
-
-    # # Ensure the directory exists
-    # directory = os.path.dirname(path)
-    # if not os.path.exists(directory):
-    #     os.makedirs(directory)
-    # final_result_df.to_csv(path, index=False)
-
-    # print(final_result)
-    # # Create a labeled dataset L and an unlabeled dataset U
-    # L, L_labels = make_classification(n_samples=100, n_features=10, n_classes=2, random_state=42)
-    # U, _ = make_classification(n_samples=50, n_features=10, n_classes=2, random_state=24)
-
-    # Combine L and L_labels
-
-
-    # Evaluate ensemble on some test data (not shown here, would need a separate test set)
-    # Example: accuracy = accuracy_score(test_labels, ensemble_predictions)
     print("Ensemble of classifiers trained.")
