@@ -1,6 +1,6 @@
 #2 - Stacking
 # Paper Source https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9893798
-# 2nd Paper, not used yet
+# 2nd Paper
 # P. K. Jain, R. Pamula, and G. Srivastava, ‘‘A systematic literature review 1799 on machine learning applications for consumer sentiment analysis using 1800 online reviews,’’ Comput. Sci. Rev., vol. 41, Aug. 2021, Art. no. 100413, 1801 doi: 10.1016/j.cosrev.2021.100413 
 
 import numpy as np
@@ -21,8 +21,7 @@ from dask.diagnostics import ProgressBar
 # from tensorflow.keras.layers import Dense
 
 SHEET_NAME = "Analysis"
-#INPUT_FILE = r"C:\\Users\\Pc\\Desktop\\Clarita - M2 - Thesis\\Ensemble Learning\\dataset\\nf_result_small_latest_dataset_modified_Should be replaced by 5M.xlsx"
-INPUT_FILE =r"C:\Users\clari\Desktop\M2 - Thesis\Research\Dr Jacques Bou Abdo\Recommender System\5 - Ensemble Learning Model\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
+INPUT_FILE =r"..\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
 dataset_name = 'ml-25m-subset(4)-#2'
 NF_count = 4
 
