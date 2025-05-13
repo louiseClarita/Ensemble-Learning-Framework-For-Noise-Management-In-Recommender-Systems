@@ -16,7 +16,7 @@ from catboost import CatBoostClassifier
 from sklearn.preprocessing import MultiLabelBinarizer
 
 
-INPUT_FILE =r"C:\Users\clari\Desktop\M2 - Thesis\Research\Dr Jacques Bou Abdo\Recommender System\5 - Ensemble Learning Model\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
+INPUT_FILE =r"..\Input\ml-25m-subset (4)\ratings_ml-25m-subset(4)_Combined.csv"
 dataset_name = 'ml-25m-subset(4)-#3'
 NF_count = 4
 
@@ -38,17 +38,6 @@ def load_data(INPUT_FILE):
     if NF_count == 5:
         test = ratings_df["1&2&3&3.1&4 = 1"]
         test2 = ratings_df[ratings_df['1&2&3&3.1&4 = 1'] == 1] # Should be one
-        # Transforming the genres to Binary
-        #ratings_df = Label_Encoding(ratings_df)
-
-        # Manually getting what i need from the analysis I did, meaning, the test 6 train
-
-        
-        # Here I am removing title because I do not need it
-        #cols_to_include = ratings_df.columns.difference(['title','genres'], sort=False)
-        #cols_to_include = ["userId","movieId","rating",	"timestamp","genres_bin","nf1","nf2","nf3","nf4","cluster-ab-nDCG","equiv-ab-nDCG",	"ab-ndcg",	"perc-change",	"condition-1", "user_serendipity"]
-        
-
         ratings_df.loc[(ratings_df['1&2&3&3.1&4 = 1'] == 1), 'result'] = 1
         ratings_df.loc[(ratings_df['1&2&3&3.1&4 = 0']  == 1), 'result'] = 0
         ratings_df.loc[(ratings_df['1&2&3&3.1&4 = 1'] == 0) & (ratings_df['1&2&3&3.1&4 = 0']  == 0), 'result'] = -1 # Unlabeled
@@ -72,16 +61,6 @@ def load_data(INPUT_FILE):
     elif NF_count == 4:
         test = ratings_df["1&2&3&4 = 1"]
         test2 = ratings_df[ratings_df['1&2&3&4 = 1'] == 1] # Should be one
-        # Transforming the genres to Binary
-        #ratings_df = Label_Encoding(ratings_df)
-
-        # Manually getting what i need from the analysis I did, meaning, the test 6 train
-
-        
-        # Here I am removing title because I do not need it
-        #cols_to_include = ratings_df.columns.difference(['title','genres'], sort=False)
-        #cols_to_include = ["userId","movieId","rating",	"timestamp","genres_bin","nf1","nf2","nf3","nf4","cluster-ab-nDCG","equiv-ab-nDCG",	"ab-ndcg",	"perc-change",	"condition-1", "user_serendipity"]
-        
 
         ratings_df.loc[(ratings_df['1&2&3&4 = 1'] == 1), 'result'] = 1
         ratings_df.loc[(ratings_df['1&2&3&4 = 0']  == 1), 'result'] = 0
@@ -135,12 +114,6 @@ def classify_rating(userId,movieId,rating,timestamp,genres,nf1,nf2,nf3,nf4 ,algo
 
 ratings_df, training_dataset_X, training_dataset_Y, testing_dataset_X, testing_dataset_Y = load_data(INPUT_FILE)
 
-# Categorical Features should be Movies Genres - We can get this Automatically via Code
-# OneVsRestClassifier to handle multi-label classification
-# create and train the CatBoostClassifier
-# model = CatBoostClassifier(iterations=100, depth=8, learning_rate=0.1, cat_features=categorical_features,
-#                            loss_function='Logloss', custom_metric=['AUC'], random_seed=42)
-#model = OneVsRestClassifier(CatBoostClassifier(iterations=100, depth=6, use_best_model=True, learning_rate=0.1, verbose=False))
 
 model = CatBoostClassifier(iterations=100, depth=6, eval_metric='Accuracy', learning_rate=0.1,  random_seed=1234)
 model.fit(training_dataset_X, training_dataset_Y, cat_features=['genres'])
@@ -156,4 +129,4 @@ for i in range(num_batches):
 
 
 final_output = pd.concat(appended_dataframes, axis=0)
-final_output.to_csv(r'C:\\Users\\clari\\Desktop\\M2 - Thesis\\Research\\Dr Jacques Bou Abdo\\Recommender System\\5 - Ensemble Learning Model\\output\\' +dataset_name+ '\\'+ dataset_name + '_el3TestWithNF.csv', index=False)
+final_output.to_csv(r'..\\output\\' +dataset_name+ '\\'+ dataset_name + '_el3TestWithNF.csv', index=False)
