@@ -6,7 +6,7 @@ This is to be used if signature is inside the second layer (Data set that entere
 import os
 import sys
 print(os.getcwd())
-sys.path.append(r'C:\Users\clari\Desktop\M2 - Thesis\Research\Dr Jacques Bou Abdo\Recommender System\7 - Signature\Obfuscation_Application\pythonProject')
+sys.path.append(r'\7 - Signature\Obfuscation_Application\pythonProject')
 
 from Obfuscation.obfuscation import Optout
 from Obfuscation.helpers import Helpers
@@ -45,5 +45,3 @@ ratings_df = pd.merge(ratings_df, optout_df, on='userId',how='left')
 ratings_df['OptOut'].fillna(0, inplace=True)
 ratings_df.to_csv('ratings_with_optout_'+Winning_Algorithm+'.csv',index=False)
 
-
-#ratings_df.to_csv('../Output/' + OTP  + '/ratings_with_optout2.csv',index=False)
